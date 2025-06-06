@@ -6,8 +6,7 @@
 CONTAINER_NAME="duplicati"               # Duplicati Docker container name
 BACKUP_NAME="ext-usb"                    # Duplicati backup job name
 DUPLICATI_PASSWORD=""                    # Leave blank to auto-fetch from container
-AUDIO_NOTIFICATION="yes"                 # Set to "yes" to enable audio beeps
-
+AUDIO_NOTIFICATION="yes"                 # Set to "yes" to enable audio beep music notifications
 
 # # # # # # # #  DO NOT CHANGE BELOW THIS LINE # # # # # # # # # # # # # # # # # # 
 # audio notify
