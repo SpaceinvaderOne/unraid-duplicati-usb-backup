@@ -27,3 +27,41 @@ Edit the script and set the following variables at the top:
 CONTAINER_NAME="duplicati"       # Name of your Duplicati Docker container
 BACKUP_NAME="ext-usb"            # Name of the Duplicati backup job to run
 AUDIO_NOTIFICATION="yes"         # Set to "yes" to play beeps on success/failure
+
+## Password Handling
+
+There is no need to hardcode the password; it will be pulled automatically from the container’s environment variable:  
+`DUPLICATI__WEBSERVICE_PASSWORD`.
+```
+---
+
+## Usage
+
+1. Mount your USB device once and confirm its mountpoint (e.g. `/mnt/disks/usb-backup`).
+2. Create a backup job in the Duplicati web UI   
+3. Set that path as the backup destination inside Duplicati.  
+4. Save this script in Unassigned devices addition settings  
+5. When the drive is plugged in and mounted, the backup will start automatically.
+
+---
+
+## Notes
+
+- This script checks for the mount event using the `$ACTION` variable provided by Unassigned Devices.  
+- It only runs on `ADD` (mount) and will skip `UNMOUNT`, `REMOVE`, etc.  
+- Be sure the Duplicati job’s source and destination paths match the USB device's mountpoint.  
+- The container must use the `:development` tag or newer, as `duplicati-server-util` is not available in stable releases.
+
+---
+
+## Troubleshooting
+
+- If you do not hear any beep audio you will need a beep speaker in yor server
+- If the backup fails, check the syslog for error messages from the script or Duplicati logs.  
+- Ensure `/app/duplicati/duplicati-server-util` exists and runs without error from inside the container. Currently you must be runnig dev version of Duplicati
+
+---
+
+## License
+
+MIT
